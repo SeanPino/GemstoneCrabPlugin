@@ -88,7 +88,7 @@ public class GemstoneCrabPlugin extends Plugin
 
     @Override
     protected void startUp() throws Exception {
-        log.info("Gemstone Crab Counter started!");
+        log.debug("Gemstone Crab Counter started!");
 
 		// Load the saved counts from configuration
         crabCount = util.loadConfigValue(CONFIG_GROUP, CONFIG_KEY_COUNT);
@@ -101,7 +101,7 @@ public class GemstoneCrabPlugin extends Plugin
 
     @Override
     protected void shutDown() throws Exception {
-        log.info("Gemstone Crab Counter stopped!");
+        log.debug("Gemstone Crab Counter stopped!");
         overlayManager.remove(overlay);
     }
 
@@ -121,19 +121,19 @@ public class GemstoneCrabPlugin extends Plugin
 				case (GEMSTONE_CRAB_DEATH_MESSAGE):
 					if (isKillable()) {
 						crabCount++;
-						log.info("Gemstone crab killed! KC: {}", crabCount);
+						log.debug("Gemstone crab killed! KC: {}", crabCount);
 						String msg = new ChatMessageBuilder().append(Color.RED, String.format("Gemstone Crab Killed! KC: %d", crabCount)).build();
 						client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", msg, "");
 					}
 					else {
-						log.info("Gemstone crab kill did not count! Less than 5mins at the boss or not attacking.");
+						log.debug("Gemstone crab kill did not count! Less than 5mins at the boss or not attacking.");
 						String msg = new ChatMessageBuilder().append(Color.MAGENTA, String.format("Gemstone Crab not fought long enough for kill count.")).build();
 						client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", msg, "");
 					}
 					break;
 				case (GEMSTONE_CRAB_MINE_SUCCESS_MESSAGE):
 					if (!isMiningBeforeCooldown()) {
-						log.info("Gemstone Crab successfully mined!");
+						log.debug("Gemstone Crab successfully mined!");
 						miningAttempts++;
 						minedCount++;
 						setLastMiningAttempt();
@@ -141,7 +141,7 @@ public class GemstoneCrabPlugin extends Plugin
 					break;
 				case (GEMSTONE_CRAB_MINE_FAIL_MESSAGE):
 					if (!isMiningBeforeCooldown()) {
-						log.info("Failed to mine Gemstone Crab!");
+						log.debug("Failed to mine Gemstone Crab!");
 						miningAttempts++;
 						miningFailedCount++;
 						setLastMiningAttempt();
@@ -184,7 +184,7 @@ public class GemstoneCrabPlugin extends Plugin
         if (client.getLocalPlayer() != null && isNearCrab(client.getLocalPlayer().getWorldLocation())) {
 			overlayManager.add(overlay);
 			if (!isAttackingCrab && checkCrabInteraction()) {
-				log.info("is attacking crab");
+				log.debug("is attacking crab");
 				isAttackingCrab = true;
 			}
         } else {
@@ -202,7 +202,7 @@ public class GemstoneCrabPlugin extends Plugin
 		if (npc.getId() ==  NpcID.GEMSTONE_CRAB) {
 			spawnTime = LocalDateTime.now();
 			isAttackingCrab = false;
-			log.info("Starting timer for {} at {}", npc.getName(), spawnTime.toString());
+			log.debug("Starting timer for {} at {}", npc.getName(), spawnTime.toString());
 		}
 	}
 
