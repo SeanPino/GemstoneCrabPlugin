@@ -253,7 +253,7 @@ public class GemstoneCrabPlugin extends Plugin
 	 * Crab was alive at least 5mins and player was attacking it at least once
 	 */
 	private boolean isKillable() {
-		return LocalDateTime.now().minus(KILL_THRESHOLD_MINUTES, ChronoUnit.MINUTES).isAfter(spawnTime) && isAttackingCrab;
+		return isAttackingCrab && LocalDateTime.now().minus(KILL_THRESHOLD_MINUTES, ChronoUnit.MINUTES).isAfter(spawnTime);
 	}
 
 	private boolean checkCrabInteraction() {
